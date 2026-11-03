@@ -42,7 +42,7 @@ function aiFinancialSummary(){
  const all=totals(state.transactions),current=state.transactions.filter(t=>within(t,"month")),now=totals(current),groups={};
  current.filter(isExp).forEach(t=>groups[t.category]=(groups[t.category]||0)+t.amount);
  const months=monthKeys(6),m=monthMap();
- return{currency:currency(),transactionCount:state.transactions.length,allTime:{income:all.income,expenses:all.expenses,netCashFlow:all.net,savingsRatePercent:all.rate},currentMonth:{income:now.income,expenses:now.expenses,netCashFlow:now.net,savingsRatePercent:now.rate,expensesByCategory:Object.entries(groups).sort((a,b)=>b[1]-a[1]).map(([category,amount])=>({category,amount:round(amount)}))},recentMonthlyTotals:months.map(k=>({month:k,income:round(m[k]?.income||0),expenses:round(m[k]?.expense||0})),budgets:currentBudgets().map(b=>({category:b.category,limit:b.limit,spent:b.spent,remaining:b.remaining,percentUsed:round(b.percent)}))};
+ return{currency:currency(),transactionCount:state.transactions.length,allTime:{income:all.income,expenses:all.expenses,netCashFlow:all.net,savingsRatePercent:all.rate},currentMonth:{income:now.income,expenses:now.expenses,netCashFlow:now.net,savingsRatePercent:now.rate,expensesByCategory:Object.entries(groups).sort((a,b)=>b[1]-a[1]).map(([category,amount])=>({category,amount:round(amount)}))},recentMonthlyTotals:months.map(k=>({month:k,income:round(m[k]?.income||0),expenses:round(m[k]?.expense||0)})),budgets:currentBudgets().map(b=>({category:b.category,limit:b.limit,spent:b.spent,remaining:b.remaining,percentUsed:round(b.percent)}))};
 }
 function extractAIText(data,provider){
  if(provider==="gemini")return(data?.candidates?.[0]?.content?.parts||[]).map(p=>p.text||"").join("\n").trim();
