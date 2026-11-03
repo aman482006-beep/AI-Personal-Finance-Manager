@@ -19,13 +19,13 @@ Local-first finance dashboard for GitHub Pages. Import CSV statements, map colum
 - Statistical unusual-spend flags with explanations, not fraud detection.
 - Local financial Q&A plus optional OpenAI, Grok (xAI) and Gemini API integration using a user-supplied key.
 - Five colour themes: Sage, Ocean, Lavender, Sand and Midnight.
-- Monthly report, transaction CSV and JSON backup exports.
+- Monthly report, transaction CSV and JSON backup export/restore for manual device-to-device transfer.
 - INR default, selectable currency and fictional demo data.
 
 ## Architecture and privacy limitations
 GitHub Pages serves static files; it cannot run FastAPI/Python, SQLite, secure server sessions or a hosted LLM. This edition processes data in JavaScript and stores transactions in browser localStorage. The local assistant is a deterministic analyst. Optional AI mode calls the selected provider directly from the browser using a key supplied by the user; the key exists in tab memory only and is not written to localStorage. On AI requests, Moneta sends the question and aggregate month/category/budget totals, not raw transaction rows or merchant names. This is still a browser-only integration: a browser extension, injected script, or compromised page could access a key while the tab is open. Use a restricted, low-limit API key and disconnect/close the tab when finished. Provider billing and provider data policies apply. There is no real user authentication, encryption or multi-device sync.
 
-Do not use this browser demo as a secure vault for sensitive statements or on shared/public devices. localStorage is not encrypted and is device/browser-specific. Export backups before changing browsers. Never commit personal statements.
+Do not use this browser demo as a secure vault for sensitive statements or on shared/public devices. localStorage is not encrypted and is device/browser-specific. Export a JSON backup on one device and use **Restore backup** on another for manual transfer. JSON backups are not encrypted, so store them privately and delete temporary copies after restoring. This is manual transfer, not automatic cloud sync. Never commit personal statements.
 
 For production, deploy a separately hosted FastAPI service and database. For multi-device sync, use an authenticated database service such as Supabase or Firebase, or a server-side GitHub App/Worker broker. Never embed a GitHub personal access token in a GitHub Pages app: visitors can inspect browser code and requests. A browser-only app cannot safely commit private user data to GitHub. Add password hashing, secure HTTP-only sessions, CSRF protections, per-user authorization, rate limiting, HTTPS, encrypted backups, audit logs and deletion workflows. Keep API keys server-side. LLM requests need explicit consent and disclosure; minimise raw transaction data sent to providers.
 
@@ -35,6 +35,7 @@ For production, deploy a separately hosted FastAPI service and database. For mul
 - `app.js`: parsing, categorisation, calculations, budgets, recurrence, anomaly flags and local Q&A
 - `sample-transactions.csv`: fictional Indian-style statement
 - `tests/logic.test.js`: financial logic unit tests
+- `tests/smoke.test.js`: app structure, AI privacy, theme and CSV safety checks
 
 OpenAI Responses API: https://developers.openai.com/api/reference/resources/responses/methods/create
 Grok Responses API: https://docs.x.ai/developers/rest-api-reference/inference/responses
