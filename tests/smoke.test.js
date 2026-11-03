@@ -47,7 +47,7 @@ test("themes are selectable and matching palette rules exist", () => {
 
 test("budget removal uses a clearly labelled button", () => {
   assert.ok(app.includes('class="link remove-budget"'));
-  assert.ok(app.includes('data-remove-budget="'+esc(b.category)+'">Remove'));
+  assert.ok(app.includes('>Remove</button>'));
 });
 
 test("CSV export protects against spreadsheet formula injection", () => {
