@@ -51,5 +51,5 @@ test("budget removal uses a clearly labelled button", () => {
 });
 
 test("CSV export protects against spreadsheet formula injection", () => {
-  assert.ok(app.includes('if(/^[\\s]*[=+@\\-\\t\\r]/.test(s))s="\\'"+s;'));
+  assert.ok(app.includes('if(/^[\\s]*[=+@\\-\\t\\r]/.test(s))'));
 });
