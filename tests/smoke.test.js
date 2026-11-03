@@ -8,27 +8,27 @@ const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const app = fs.readFileSync(path.join(root, "app.js"), "utf8");
 const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
 
-test("all hard-coded app DOM references exist in HTML", () => {
-  const ids = [...html.matchAll(/\\bid="([^"]+)"/g)].map((m) => m[1]);
+test("all app DOM references exist and IDs are unique", () => {
+  const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
   const unique = new Set(ids);
   assert.equal(unique.size, ids.length, "HTML contains duplicate IDs");
-  const referenced = [...app.matchAll(/getElementById\\("([^"]+)"\\)/g)].map((m) => m[1]);
+  const referenced = [...app.matchAll(/getElementById\("([^"]+)"\)/g)].map((m) => m[1]);
   const missing = [...new Set(referenced.filter((id) => !unique.has(id)))];
   assert.deepEqual(missing, []);
 });
 
-test("AI beta exposes supported providers and no key is persisted", () => {
+test("AI beta exposes OpenAI, Grok and Gemini without persisting keys", () => {
   for (const provider of ["openai", "grok", "gemini"]) {
-    assert.match(html, new RegExp('value="' + provider + '"'));
+    assert.ok(html.includes('value="' + provider + '"'));
   }
-  assert.match(app, /https:\\/\\/api\\.openai\\.com\\/v1/);
-  assert.match(app, /https:\\/\\/api\\.x\\.ai\\/v1/);
-  assert.match(app, /generativelanguage\\.googleapis\\.com/);
-  assert.match(app, /store:false/);
-  assert.doesNotMatch(app, /localStorage\\.(?:setItem|getItem)\\([^;]*(?:apiKey|aiSession)/);
+  assert.ok(app.includes("https://api.openai.com/v1"));
+  assert.ok(app.includes("https://api.x.ai/v1"));
+  assert.ok(app.includes("generativelanguage.googleapis.com"));
+  assert.ok(app.includes("store:false"));
+  assert.ok(!/localStorage\.(?:setItem|getItem)\([^;]*(?:apiKey|aiSession)/.test(app));
 });
 
-test("AI provider receives aggregated totals, not transaction descriptions", () => {
+test("AI context contains aggregates but not raw transaction details", () => {
   const start = app.indexOf("function aiFinancialSummary");
   const end = app.indexOf("function extractAIText", start);
   assert.ok(start >= 0 && end > start);
@@ -36,20 +36,20 @@ test("AI provider receives aggregated totals, not transaction descriptions", () 
   assert.doesNotMatch(summary, /description|merchant|reference|account/);
 });
 
-test("themes are selectable and have matching palette rules", () => {
+test("themes are selectable and matching palette rules exist", () => {
   for (const theme of ["sage", "ocean", "lavender", "sand", "midnight"]) {
-    assert.match(html, new RegExp('value="' + theme + '"'));
+    assert.ok(html.includes('value="' + theme + '"'));
   }
   for (const theme of ["ocean", "lavender", "sand", "midnight"]) {
-    assert.ok(css.includes('data-theme="' + theme + '"'), "Missing CSS palette: " + theme);
+    assert.ok(css.includes('data-theme="' + theme + '"'));
   }
 });
 
-test("budget removal is a labelled action, not an unlabeled ellipsis", () => {
-  assert.match(app, /class="link remove-budget"[^>]*>Remove<\\/button>/);
-  assert.doesNotMatch(app, /data-remove-budget[^>]*>···/);
+test("budget removal uses a clearly labelled button", () => {
+  assert.ok(app.includes('class="link remove-budget"'));
+  assert.ok(app.includes('data-remove-budget="'+esc(b.category)+'">Remove'));
 });
 
-test("CSV export defends against spreadsheet formula injection", () => {
-  assert.match(app, /function csvEscape\\(v\\).*\^\\[\\s\\]\\*\\[=\\+@/);
+test("CSV export protects against spreadsheet formula injection", () => {
+  assert.ok(app.includes('if(/^[\\s]*[=+@\\-\\t\\r]/.test(s))s="\\'"+s;'));
 });
