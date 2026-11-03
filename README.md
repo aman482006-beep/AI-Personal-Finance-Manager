@@ -39,3 +39,6 @@ PapaParse and Chart.js load from public CDNs. Internet access is needed for CSV 
 
 ## Disclaimer
 Educational software only. Not a bank, financial adviser, accounting system, tax service, investment recommendation or fraud detector. Verify imported figures.
+
+## Monthly report export
+From **Settings**, export the current calendar month's report as PDF or TXT. The PDF renderer is loaded from jsPDF's public CDN; if it cannot load, the app falls back to a text report. CSV exports contain the complete transaction set.
