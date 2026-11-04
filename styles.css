@@ -40,3 +40,11 @@ html[data-theme="midnight"] .progress-track,html[data-theme="midnight"] .track{b
 .welcome-option span{font-size:10px;line-height:1.6;color:#87948b;}
 .welcome-modal>.actions{margin-top:14px;}
 @media(max-width:560px){#txModal .modal{width:100%;padding:20px;max-height:calc(100dvh - 24px);overflow-y:auto;}#txModal .form{grid-template-columns:1fr;gap:11px;}#txModal .form>.actions{display:grid;grid-template-columns:1fr;gap:8px;}#txModal .form>.actions button{width:100%;min-width:0;}#txModal .form>.actions .close{order:2;}#txModal .form>.actions .primary{order:1;}}
+
+/* Custom transaction categories and optional notes. */
+#txModal .form textarea{width:100%;min-height:76px;resize:vertical;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:12px/1.5 Arial,sans-serif;}
+#txModal .form textarea:focus,#txModal .form input:focus,#txModal .form select:focus{outline:2px solid var(--accent-soft);border-color:var(--accent);}
+#txModal .field-hint{font-size:9px;line-height:1.5;color:#8b988e;letter-spacing:0;}
+#txModal .optional{font:9px Arial,sans-serif;letter-spacing:0;color:#9aa49d;}
+.tx-note{display:block;margin-top:3px;color:#78877c!important;white-space:normal;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.table-tx small{max-width:440px;white-space:normal;line-height:1.4;}
