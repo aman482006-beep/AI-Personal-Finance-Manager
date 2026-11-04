@@ -23,3 +23,20 @@ html[data-theme="midnight"] .progress-track,html[data-theme="midnight"] .track{b
 @media(max-width:1100px){main{padding:0 24px}.sidebar{width:215px}main{margin-left:215px}.ai-provider-form{grid-template-columns:1fr 1fr}.ai-provider-form .api-key-field{grid-column:1/-1}.ai-actions{grid-column:1/-1}}
 @media(max-width:760px){main{margin-left:0;padding:0 16px}.topbar{height:auto;min-height:64px;gap:8px;flex-wrap:wrap;padding:10px 0}.top-actions{margin-left:auto;justify-content:flex-end}.top-actions .local{display:none}.page{padding-top:22px}.heading{align-items:flex-start;flex-direction:column}.heading h1{font-size:25px}.heading .controls{width:100%;justify-content:flex-start}.metrics{grid-template-columns:1fr 1fr}.metric{min-height:112px;padding:14px}.metric strong{font-size:20px}.grid.two{grid-template-columns:1fr}.toolbar input{flex-basis:100%}.toolbar select{flex:1 1 40%}.toolbar button{flex:1 1 35%}.setting{align-items:flex-start;flex-direction:column}.setting select{width:100%}.setting-actions{width:100%}.setting-actions button{flex:1 1 120px}.ai-provider-form{grid-template-columns:1fr}.ai-provider-form .api-key-field,.ai-actions{grid-column:auto}.ai-actions button{flex:1}.panel{padding:15px}.top-actions .primary{padding:9px 11px}.remove-budget{min-width:72px}}
 @media(max-width:390px){main{padding:0 12px}.metrics{gap:8px}.metric strong{font-size:18px}.metric span{font-size:9px}.top-actions .primary{font-size:10px}.controls button{flex:1 1 auto}}
+
+/* Transaction modal footer and first-run setup refinements. */
+#txModal .modal{width:min(100%,560px);padding:26px 28px;}
+#txModal .form{width:100%;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:13px;row-gap:12px;}
+#txModal .form>label{min-width:0;}
+#txModal .form>label input,#txModal .form>label select{min-width:0;}
+#txModal .form>.actions{grid-column:1/-1;width:100%;display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:10px;margin:8px 0 0;padding-top:4px;}
+#txModal .form>.actions button{position:static;flex:0 0 auto;min-width:112px;min-height:44px;margin:0;white-space:nowrap;}
+#txModal .form>.actions .close{width:auto;background:transparent;border:1px solid var(--line);}
+.welcome-modal{width:min(100%,500px);}
+.welcome-options{display:grid;gap:10px;}
+.welcome-option{display:grid;gap:6px;text-align:left;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);cursor:pointer;}
+.welcome-option:hover{border-color:var(--accent);background:var(--surface-soft);}
+.welcome-option strong{font-size:12px;}
+.welcome-option span{font-size:10px;line-height:1.6;color:#87948b;}
+.welcome-modal>.actions{margin-top:14px;}
+@media(max-width:560px){#txModal .modal{width:100%;padding:20px;max-height:calc(100dvh - 24px);overflow-y:auto;}#txModal .form{grid-template-columns:1fr;gap:11px;}#txModal .form>.actions{display:grid;grid-template-columns:1fr;gap:8px;}#txModal .form>.actions button{width:100%;min-width:0;}#txModal .form>.actions .close{order:2;}#txModal .form>.actions .primary{order:1;}}
