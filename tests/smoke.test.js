@@ -53,3 +53,16 @@ test("budget removal uses a clearly labelled button", () => {
 test("CSV export protects against spreadsheet formula injection", () => {
   assert.ok(app.includes('if(/^[\\s]*[=+@\\-\\t\\r]/.test(s))'));
 });
+
+
+test("first visit clearly offers demo, import and blank-workspace paths", () => {
+  const welcome = html.match(/<div class="backdrop" id="welcomeModal">([\s\S]*?)<div class="backdrop" id="budgetModal">/);
+  assert.ok(welcome, "First-visit welcome screen should exist");
+  for (const id of ["welcomeDemo", "welcomeFresh", "welcomeImport"]) {
+    assert.ok(welcome[1].includes('id="' + id + '"'), "Missing onboarding action " + id);
+  }
+  assert.ok(welcome[1].includes("fictional transactions"));
+  assert.ok(welcome[1].includes("does not connect to a bank"));
+  assert.ok(welcome[1].includes("does not sync across devices"));
+  assert.ok(app.includes("firstVisit"), "Welcome flow should be gated to first visit");
+});

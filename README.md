@@ -8,6 +8,10 @@ Local-first finance dashboard for GitHub Pages. Import CSV statements, map colum
 3. Choose `main`, folder `/ (root)`, then Save.
 4. Wait for deployment and open the published URL. No build step or API secret is required.
 
+## First visit
+
+The welcome screen offers three clear starting paths: explore fictional demo transactions, import a CSV statement, or start with a blank workspace. Moneta does not connect to a bank and does not sync data across devices. Work is stored in the current browser only.
+
 ## Features
 - CSV upload and flexible mapping for date, description, debit, credit, amount, balance, reference and account.
 - Date/amount validation, skipped-row feedback and duplicate detection.
